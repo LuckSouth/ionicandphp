@@ -1,5 +1,6 @@
 <?php
 
+//senha: tijuca123
 
  	header("Access-Control-Allow-Origin: *");
 	// $data = array(
@@ -13,10 +14,10 @@
 	// echo json_encode($data);
 
    // Define database connection parameters
-   $hn      = 'localhost';
-   $un      = 'root';
-   $pwd     = 'root';
-   $db      = 'app-tijuca';
+   $hn      = 'seu link';
+   $un      = 'seu usuario';
+   $pwd     = 'sua senha';
+   $db      = 'nome do banco';
    $cs      = 'utf8';
 
    // Set up the PDO parameters
@@ -56,7 +57,7 @@
             $stmt->bindParam(':description', $description, PDO::PARAM_STR);
             $stmt->execute();
 
-            echo json_encode(array('message' => 'Congratulations the record ' . $name . ' was added to the database'));
+            echo json_encode(array('message' => 'O negocio de nome ' . $name . ' foi adiocionado com sucesso'));
          }
          // Catch any errors in running the prepared statement
          catch(PDOException $e)
