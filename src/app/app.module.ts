@@ -11,6 +11,9 @@ import { HomePage } from '../pages/home/home';
 import { EntryPage } from '../pages/entry/entry';
 import { PhpProvider } from '../providers/php/php';
 import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
+
+import { StorageProvider } from '../providers/storage/storage'
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,7 +39,8 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PhpProvider
+    PhpProvider,
+    StorageProvider
   ]
 })
 export class AppModule {}

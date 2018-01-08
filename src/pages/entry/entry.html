@@ -9,52 +9,82 @@
 
 <ion-content padding>
 
-    <div>
-        <ion-item *ngIf="isEdited && !hideForm">
-          <button ion-button item-right color="secondary" text-center block (click)="deleteEntry()">Remove this Entry?</button>
-        </ion-item>
-  
-  
-        <div *ngIf="hideForm">
-          <ion-item class="post-entry-message" text-wrap>
-            <h2>Success!</h2>
-            <p>Maybe you'd like to edit an existing entry or add a new record?</p>
-            <p>Simply go back to the home page and select the option you want to pursue.</p>
+  <div>
+    <ion-item *ngIf="isEdited && !hideForm">
+      <button ion-button item-right color="secondary" text-center block (click)="deleteEntry()">Remove this Entry?</button>
+    </ion-item>
+
+
+    <div *ngIf="hideForm">
+      <ion-item class="post-entry-message" text-wrap>
+        <h2>Success!</h2>
+        <p>Maybe you'd like to edit an existing entry or add a new record?</p>
+        <p>Simply go back to the home page and select the option you want to pursue.</p>
+      </ion-item>
+    </div>
+
+
+    <div *ngIf="!hideForm">
+      <form [formGroup]="form">
+
+        <ion-list>
+          <ion-item-group>
+            <ion-item-divider color="light">Technology Name *</ion-item-divider>
+            <ion-item>
+              <ion-input type="text" placeholder="Enter a name..." formControlName="name" [(ngModel)]="technologyName" [(ngModel)]="storage.despesa"></ion-input>
+            </ion-item>
+          </ion-item-group>
+
+
+          <ion-item-group>
+            <ion-item-divider color="light">Technology Description *</ion-item-divider>
+            <ion-item>
+              <ion-textarea placeholder="Description..." formControlName="description" rows="6" [(ngModel)]="technologyDescription" [(ngModel)]="storage.valor"></ion-textarea>
+            </ion-item>
+
+          </ion-item-group>
+
+
+          <ion-item>
+            <button (click)="saveEntry();adicionar()" ion-button color="primary" text-center block [disabled]="!form.valid">Save Entry</button>
           </ion-item>
-        </div>
-  
-  
-        <div *ngIf="!hideForm">
-          <form [formGroup]="form">
-  
-            <ion-list>
-              <ion-item-group>
-                <ion-item-divider color="light">Technology Name *</ion-item-divider>
-                <ion-item>
-                  <ion-input type="text" placeholder="Enter a name..." formControlName="name" [(ngModel)]="technologyName"></ion-input>
-                </ion-item>
-              </ion-item-group>
-  
-  
-              <ion-item-group>
-                <ion-item-divider color="light">Technology Description *</ion-item-divider>
-                <ion-item>
-                  <ion-textarea placeholder="Description..." formControlName="description" rows="6" [(ngModel)]="technologyDescription"></ion-textarea>
-                </ion-item>
-                
-              </ion-item-group>
-  
-  
-              <ion-item>
-                <button (click)="saveEntry()" ion-button color="primary" text-center block [disabled]="!form.valid">Save Entry</button>
-              </ion-item>
-  
-            </ion-list>
-  
-          </form>
-        </div>
-      </div>
-  
-  
+
+          <button *ngIf="editando" ion-button outline (click)="atualizar()">Atualizar</button>
+          <button *ngIf="editando" ion-button outline (click)="cancelarEditar()">Cancelar</button>
+    
+          <ion-card *ngFor="let storage of storages">
+            <ion-card-header>
+              <span id="titulo"> Título </span>
+            </ion-card-header>
+            <ion-card-header>
+              <span> {{storage.despesa}} </span>
+              <br/>
+              <span> {{storage.valor}} </span>
+            </ion-card-header>
+    
+            <ion-row>
+              <ion-col>
+                <!-- Quando ele clicar no Editar ele vai saber qual Storage editar (storge)= ao objeto storage do *ngFor-->
+                <button ion-button icon-left clear small (click)="editar(storage)">
+                  <ion-icon name="create"></ion-icon>
+                  <div>Editar</div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-left clear small (click)="deletar(storage)">
+                  <ion-icon name="trash"></ion-icon>
+                  <div>Deletar</div>
+                </button>
+              </ion-col>
+            </ion-row>
+    
+          </ion-card>
+
+        </ion-list>
+
+      </form>
+    </div>
+  </div>
+
 
 </ion-content>
